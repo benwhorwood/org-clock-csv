@@ -63,7 +63,7 @@
   "Export `org-mode' clock entries to CSV format."
   :group 'external)
 
-(defcustom org-clock-csv-header "task,parents,category,start,end,effort,ishabit,tags"
+(defcustom org-clock-csv-header "task,parents,category,start,end,effort,ishabit,tags,issuekey"
   "Header for the CSV output.
 
 Be sure to keep this in sync with changes to
@@ -94,7 +94,8 @@ See `org-clock-csv-default-row-fmt' for an example."
                    (plist-get plist ':end)
                    (plist-get plist ':effort)
                    (plist-get plist ':ishabit)
-                   (plist-get plist ':tags))
+                   (plist-get plist ':tags)
+                   (plist-get plist ':issuekey))
              ","))
 
 ;;;; Utility functions:
@@ -173,6 +174,7 @@ properties."
            (ishabit (when (equal "habit" (org-element-property
                                           :STYLE task-headline))
                       "t"))
+           (issuekey (org-element-property :ISSUE_KEY task-headline))
            (category (org-clock-csv--find-category task-headline))
            (start (format "%d-%s-%s %s:%s"
                           (org-element-property :year-start timestamp)
@@ -204,6 +206,7 @@ properties."
             :duration duration
             :effort effort
             :ishabit ishabit
+            :issuekey issuekey
             :tags tags))))
 
 (defun org-clock-csv--get-entries (filelist &optional no-check)
