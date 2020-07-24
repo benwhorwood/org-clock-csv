@@ -1,6 +1,3 @@
-#+STARTUP: content
-#+TITLE: Sample
-
 * TODO Example Task                                                                        :ex1:ex2:
   :PROPERTIES:
   :CATEGORY: Category
